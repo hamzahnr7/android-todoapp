@@ -17,7 +17,7 @@ import {
   TextInput,
   TouchableOpacity,
   useColorScheme,
-  View,
+  View
 } from 'react-native';
 
 import Task from './components/todo';
@@ -42,7 +42,7 @@ export default function App() {
   return (
 
     <View style={styles.container}>
-      {/* Added this scroll view to enable scrolling when list gets longer than the page */}
+      {/* longer list*/}
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1
@@ -76,20 +76,18 @@ export default function App() {
       {/* Write new todo */}
       {/* supaya tidak terhalang keyboard */}
       <KeyboardAvoidingView 
-        behavior={Platform.OS === "android" ? "padding" : "height"}
+        behavior={Platform.OS === "android" ? "10" : "10"}
         style={styles.writeTaskWrapper}
       >
-        <TextInput style={styles.input} placeholder={'Create New ToDo'} value={task} onChangeText={text => setTask(text)} />
-        <TouchableOpacity onPress={() => handleAddTask()}>
+      <TextInput style={styles.input} placeholder={'Create New ToDo'} value={task} onChangeText={text => setTask(text)} />
         <Stack fill center spacing={4}>
-        <FAB
+        <FAB onPress={() => handleAddTask()}
           variant="extended"
           icon={props => <Icon name="pencil" {...props} />}
           label="New ToDo"
           color="primary"
         />
         </Stack>
-        </TouchableOpacity>
       </KeyboardAvoidingView>
       
     </View>
@@ -119,15 +117,15 @@ const styles = StyleSheet.create({
   },
   writeTaskWrapper: {
     position: 'absolute',
-    bottom: 60,
+    bottom: 30,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center'
   },
   input: {
-    paddingVertical: 15,
-    paddingHorizontal: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
     backgroundColor: '#FFF',
     borderRadius: 60,
     borderColor: '#C0C0C0',
@@ -144,5 +142,4 @@ const styles = StyleSheet.create({
     borderColor: '#C0C0C0',
     borderWidth: 1,
   },
-  addText: {},
 });

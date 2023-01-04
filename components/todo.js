@@ -1,20 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { 
+    View, 
+    Text, 
+    StyleSheet, 
+    TouchableOpacity 
+} from 'react-native';
 
 const Task = (props) => {
 
-    return ( <
-        View style = { styles.item } >
-        <
-        View style = { styles.itemLeft } >
-        <
-        View style = { styles.square } > < /View> <
-        Text style = { styles.itemText } > { props.text } < /Text> <
-        /View> <
-        View style = { styles.circular } > < /View> <
-        /View>
-    )
-}
+    return (
+        <View style={styles.item}>
+          <View style={styles.itemLeft}>
+            <View style={styles.square}></View>
+            <Text style={styles.itemText}>{props.text}</Text>
+          </View>
+          <View style={styles.circular}></View>
+        </View>
+      )
+    }
+    
 
 const styles = StyleSheet.create({
     item: {
@@ -48,7 +52,7 @@ const styles = StyleSheet.create({
         borderColor: '#55BCF6',
         borderWidth: 2,
         borderRadius: 5,
-    },
+    }
 });
 
 export default Task;
