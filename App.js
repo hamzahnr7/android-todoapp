@@ -1,5 +1,5 @@
 /**
- * Simple React Native ToDo App
+ * Simple React Native ToDo App.
  */
 
 import React, {useState} from 'react';
@@ -49,11 +49,7 @@ export default function App() {
         }}
         keyboardShouldPersistTaps='handled'
       >
-
-
-
       {/* Today's Tasks */}
-
       <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>Today's tasks</Text>
         <View style={styles.items}>
@@ -109,7 +105,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   sectionTitle: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold'
   },
   items: {
