@@ -1,5 +1,5 @@
 /**
- * Simple React Native ToDo App.
+ * Simple React Native ToDo App
  */
 
 import React, {useState} from 'react';
@@ -37,13 +37,7 @@ export default function App() {
     itemsCopy.splice(index, 1);
     setTaskItems(itemsCopy)
   }
- 
-  const checkTextInput = () => {
-    if (false) {
-      ToastAndroid.show("Please enter task name", ToastAndroid.SHORT);
-      return;
-    } 
-  };
+
   const upperTitle = () => {
     
   }
@@ -136,7 +130,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   sectionTitle: {
-    fontSize: 23,
+    fontSize: 24,
     fontWeight: 'bold'
   },
   items: {
