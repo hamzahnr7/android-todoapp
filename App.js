@@ -1,5 +1,5 @@
 /**
- * Simple React Native ToDo App
+ * Simple React Native ToDo App.
  */
 
 import React, {useState} from 'react';
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   sectionTitle: {
-    fontSize: 24,
+    fontSize: 23,
     fontWeight: 'bold'
   },
   items: {
