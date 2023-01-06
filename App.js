@@ -5,6 +5,7 @@
 import React, {useState} from 'react';
 import { Stack, FAB } from "@react-native-material/core";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
 import {
   Image,
   KeyboardAvoidingView,
@@ -17,27 +18,45 @@ import {
   TextInput,
   TouchableOpacity,
   useColorScheme,
-  View
+  View,
+  FlatList,
+  ToastAndroid
 } from 'react-native';
-
+import todoTemp from './todoTemp';
 import Task from './components/todo';
 
 
 export default function App() {
-  const [task, setTask] = useState();
+  const [taskNew, setTask] = useState('');
   const [taskItems, setTaskItems] = useState([]);
 
-  const handleAddTask = () => {
-    Keyboard.dismiss();
-    setTaskItems([...taskItems, task])
-    setTask(null);
-  }
+
 
   const completeTask = (index) => {
     let itemsCopy = [...taskItems];
     itemsCopy.splice(index, 1);
     setTaskItems(itemsCopy)
   }
+ 
+  const checkTextInput = () => {
+    if (false) {
+      ToastAndroid.show("Please enter task name", ToastAndroid.SHORT);
+      return;
+    } 
+  };
+  const upperTitle = () => {
+    
+  }
+  const handleAddTask = () => {
+    if (!taskNew.trim()) {
+      ToastAndroid.show("Please enter task name", ToastAndroid.SHORT);
+      return;
+    } 
+    Keyboard.dismiss();
+    setTaskItems([...taskItems, taskNew])
+    setTask('');
+  }
+
 
   return (
 
@@ -49,11 +68,7 @@ export default function App() {
         }}
         keyboardShouldPersistTaps='handled'
       >
-
-
-
       {/* Today's Tasks */}
-
       <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>Today's tasks</Text>
         <View style={styles.items}>
@@ -70,8 +85,18 @@ export default function App() {
           }
         </View>
       </View>
-        
       </ScrollView>
+      <View style={{ height: 60}}>
+        <FlatList
+          data={todoTemp}
+          keyExtractor={item=>item.name}
+          showsVerticalScrollIndicator={false}
+          renderItem={({item}) => (
+        <View>
+          <Text>{item.name}</Text>
+        </View>  
+  )}
+  />
 
       {/* Write new todo */}
       {/* supaya tidak terhalang keyboard */}
@@ -79,18 +104,19 @@ export default function App() {
         behavior={Platform.OS === "android" ? "10" : "10"}
         style={styles.writeTaskWrapper}
       >
-      <TextInput style={styles.input} placeholder={'Create New ToDo'} value={task} onChangeText={text => setTask(text)} />
-        <Stack fill center spacing={4}>
+      <TextInput style={styles.input} placeholder={"Create New ToDo"} value={taskNew} onChangeText={(text) => setTask(text)} />
+        <Stack fill center spacing={4}> .
         <FAB onPress={() => handleAddTask()}
-          variant="extended"
-          icon={props => <Icon name="pencil" {...props} />}
+          variant="extended" 
+          icon={props => <Icon name="pencil" {...props} />} 
           label="New ToDo"
           color="primary"
         />
         </Stack>
       </KeyboardAvoidingView>
-      
+
     </View>
+  </View>
   );
 }
 
@@ -99,14 +125,15 @@ const styles = StyleSheet.create({
     flex: 1
   },
   image: {
-    width: 200,
-    height: 200,
-    flex: 1,
-    justifyContent: "center"
+    width: 240,
+    height: 240,
   },
   tasksWrapper: {
     paddingTop: 80,
     paddingHorizontal: 20,
+    alignContent: "center",
+    alignItems: "center",
+    flex: 1,
   },
   sectionTitle: {
     fontSize: 24,
