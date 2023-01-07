@@ -1,3 +1,4 @@
+import { Button } from '@react-native-material/core';
 import React from 'react';
 import { 
     View, 
@@ -5,6 +6,8 @@ import {
     StyleSheet, 
     TouchableOpacity 
 } from 'react-native';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
 
 const Task = (props) => {
 
@@ -13,6 +16,14 @@ const Task = (props) => {
           <View style={styles.itemLeft}>
             <View style={styles.square}></View>
             <Text style={styles.itemText}>{props.text}</Text>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity style={{marginHorizontal: 10}}>
+                <Icon name='pencil-box' size={30}/>
+            </TouchableOpacity>
+            <TouchableOpacity>
+                <Icon name='delete-empty' size={30}/>
+            </TouchableOpacity>
           </View>
         </View>
       )

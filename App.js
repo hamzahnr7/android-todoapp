@@ -65,8 +65,8 @@ export default function App() {
       {/* Today's Tasks */}
       <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>Today's tasks</Text>
-        <View style={styles.items}>
         <Image style={styles.image} source={require('./assets/background.png')}/>
+        <View style={styles.items}>
           {/* task go */}
           {
             taskItems.map((item, index) => {
@@ -81,36 +81,34 @@ export default function App() {
       </View>
       </ScrollView>
       <View style={{ height: 60}}>
-        <FlatList
+      {/* Write new todo */}
+      {/* supaya tidak terhalang keyboard */}
+        <KeyboardAvoidingView 
+          // behavior={Platform.OS === "android" ? "10" : "10"}
+          style={styles.writeTaskWrapper}
+        >
+          <TextInput style={styles.input} placeholder={"Create New ToDo"} value={taskNew} onChangeText={(text) => setTask(text)} />
+          <View style={{width: 140, justifyContent: 'center'}}>
+            <FAB onPress={() => handleAddTask()}
+              variant="extended" 
+              icon={props => <Icon name="pencil" />} 
+              label="New ToDo"
+              color="primary"
+              size='80'
+            />
+          </View>
+        </KeyboardAvoidingView>
+      </View>
+      {/* <FlatList
           data={todoTemp}
           keyExtractor={item=>item.name}
           showsVerticalScrollIndicator={false}
           renderItem={({item}) => (
-        <View>
-          <Text>{item.name}</Text>
-        </View>  
-  )}
-  />
-
-      {/* Write new todo */}
-      {/* supaya tidak terhalang keyboard */}
-      <KeyboardAvoidingView 
-        behavior={Platform.OS === "android" ? "10" : "10"}
-        style={styles.writeTaskWrapper}
-      >
-      <TextInput style={styles.input} placeholder={"Create New ToDo"} value={taskNew} onChangeText={(text) => setTask(text)} />
-        <Stack fill center spacing={4}> .
-        <FAB onPress={() => handleAddTask()}
-          variant="extended" 
-          icon={props => <Icon name="pencil" {...props} />} 
-          label="New ToDo"
-          color="primary"
-        />
-        </Stack>
-      </KeyboardAvoidingView>
-
+            <View>
+              <Text>{item.name}</Text>
+            </View>)}
+        /> */}
     </View>
-  </View>
   );
 }
 
@@ -119,13 +117,13 @@ const styles = StyleSheet.create({
     flex: 1
   },
   image: {
+    alignSelf: 'center',
     width: 240,
     height: 240,
   },
   tasksWrapper: {
     paddingTop: 80,
     paddingHorizontal: 20,
-    alignContent: "center",
     alignItems: "center",
     flex: 1,
   },
@@ -134,15 +132,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   items: {
+    width: '100%',
     marginTop: 30,
   },
   writeTaskWrapper: {
-    position: 'absolute',
     bottom: 30,
-    width: '100%',
+    paddingHorizontal: 30,
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center'
+    justifyContent: 'space-between',
   },
   input: {
     paddingVertical: 10,
@@ -151,7 +148,7 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     borderColor: '#C0C0C0',
     borderWidth: 1,
-    width: 250,
+    width: 200,
   },
   addWrapper: {
     width: 60,
