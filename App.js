@@ -22,8 +22,8 @@ import {
   FlatList,
   ToastAndroid
 } from 'react-native';
-import todoTemp from './todoTemp';
-import Task from './components/todo';
+import todoTemp from './src/todoTemp';
+import Task from './src/components/todo';
 
 
 export default function App() {
