@@ -19,7 +19,6 @@ export default function App() {
         <NativeStack.Screen name='Dashboard' component={Dashboard} />
         <NativeStack.Screen name='Todo' component={Todo} />
       </NativeStack.Navigator>
-      
     </NavigationContainer>
   );
 }
