@@ -15,7 +15,10 @@ const Task = (props) => {
         <View style={styles.item}>
           <View style={styles.itemLeft}>
             <View style={styles.square}></View>
-            <Text style={styles.itemText}>{props.text}</Text>
+            <View style>
+                <Text>{props.title}</Text>
+                <Text>{props.stat}</Text>
+            </View>
           </View>
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity style={{marginHorizontal: 10}}>

@@ -1,5 +1,5 @@
 // import { StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Stack, FAB } from "@react-native-material/core";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -21,29 +21,41 @@ import {
 } from 'react-native';
 // import todoTemp from './src/todoTemp';
 import Task from '../components/todo';
+import axios from 'axios';
+import { url } from '../Env';
 
 export default function Dashboard({navigation}) {
-    const [taskNew, setTask] = useState('');
-    const [taskItems, setTaskItems] = useState([]);
+  const [taskNew, setTask] = useState('');
+  const [taskItems, setTaskItems] = useState([]);
 
-    const completeTask = (index) => {
-        let itemsCopy = [...taskItems];
-        itemsCopy.splice(index, 1);
-        setTaskItems(itemsCopy)
-    }
+  const completeTask = (index) => {
+      let itemsCopy = [...taskItems];
+      itemsCopy.splice(index, 1);
+      setTaskItems(itemsCopy)
+  }
 
-    const upperTitle = () => {
-        
-    }
-    const handleAddTask = () => {
-        if (!taskNew.trim()) {
-        ToastAndroid.show("Please enter task name", ToastAndroid.SHORT);
-        return;
-        } 
-        Keyboard.dismiss();
-        setTaskItems([...taskItems, taskNew])
-        setTask('');
-    }
+  const handleAddTask = () => {
+      if (!taskNew.trim()) {
+      ToastAndroid.show("Please enter task name", ToastAndroid.SHORT);
+      return;
+      } 
+      Keyboard.dismiss();
+      setTaskItems([...taskItems, taskNew])
+      setTask('');
+  }
+
+  const getTodo = () => {
+    const res = axios.get(url)
+    .then(function (json) {
+      setTaskItems(json.data)
+      console.log(taskItems)
+    });
+  }
+ 
+  useEffect(() => {
+    getTodo()
+  }, [])
+  
   
   return (
     <View style={styles.container}>
@@ -61,15 +73,19 @@ export default function Dashboard({navigation}) {
           <View style={styles.items}>
             {/* task go */}
             {
-              taskItems.map((item, index) => {
+              taskItems.map((data, index) => {
                 return (
-                  <TouchableOpacity key={index}  onPress={() => completeTask(index)}>
-                    <Task text={item} /> 
+                  <TouchableOpacity key={index}  /*onPress={() => completeTask(index)}*/>
+                    <Task title={data.title} stat={data.status} id={data.id}/> 
                   </TouchableOpacity>
                 )
               })
             }
           </View>
+          {/* Buat Test getTodo() */}
+          {/* <TouchableOpacity onPress={() => getTodo()}>
+            <Text>Get Todo</Text> 
+          </TouchableOpacity> */}
         </View>
         </ScrollView>
         <View style={{ height: 60}}>
@@ -79,9 +95,8 @@ export default function Dashboard({navigation}) {
             // behavior={Platform.OS === "android" ? "10" : "10"}
             style={styles.writeTaskWrapper}
           >
-            {/* <TextInput style={styles.input} placeholder={"Create New ToDo"} value={taskNew} onChangeText={(text) => setTask(text)} /> */}
             <View style={{width: 160, justifyContent: 'center'}}>
-              <FAB onPress={() => navigation.navigate('Todo')}
+              <FAB onPress={() => navigation.navigate('Todo', {buttonText: 'Create Todo'})}
                 variant="extended" 
                 icon={props => <Icon name="pencil" size={20} color='white'/>} 
                 label="New ToDo"
@@ -91,15 +106,6 @@ export default function Dashboard({navigation}) {
             </View>
           </KeyboardAvoidingView>
         </View>
-        {/* <FlatList
-            data={todoTemp}
-            keyExtractor={item=>item.name}
-            showsVerticalScrollIndicator={false}
-            renderItem={({item}) => (
-              <View>
-                <Text>{item.name}</Text>
-              </View>)}
-          /> */}
       </View>
   )
 }
