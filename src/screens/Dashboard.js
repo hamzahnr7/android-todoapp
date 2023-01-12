@@ -34,14 +34,16 @@ export default function Dashboard({navigation}) {
       setTaskItems(itemsCopy)
   }
 
-  const handleAddTask = () => {
-      if (!taskNew.trim()) {
-      ToastAndroid.show("Please enter task name", ToastAndroid.SHORT);
-      return;
-      } 
-      Keyboard.dismiss();
-      setTaskItems([...taskItems, taskNew])
-      setTask('');
+  const updateTask = async (id) => {
+    const response = await axios.get(`${url}/${id}`)
+      .then(function (json) {
+        const data = json.data;
+        // console.log(json.data);
+        navigation.navigate('Todo', {buttonText: 'Save', ...data})
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   }
 
   const getTodo = () => {
@@ -77,17 +79,14 @@ export default function Dashboard({navigation}) {
             {
               taskItems.map((data, idx) => {
                 return (
-                  <View key={idx} /*onPress={() => completeTask(index)}*/>
+                  <TouchableOpacity key={idx} onPress={() => updateTask(data.id)}>
                     <Task title={data.title} stat={data.status} id={data.id}/> 
-                  </View>
+                  </TouchableOpacity>
                 )
               })
             }
           </View>
           {/* Buat Test getTodo() */}
-          {/* <TouchableOpacity onPress={() => getTodo()}>
-            <Text>Get Todo</Text> 
-          </TouchableOpacity> */}
         </View>
         </ScrollView>
         <View style={{ height: 60}}>

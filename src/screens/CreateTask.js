@@ -4,13 +4,28 @@ import axios from 'axios';
 import { url } from '../Env';
 
 export default function Todo({route, navigation}) {
-  const [title, setTitle] = useState('');
-  const [desc, setDesc] = useState('');
-  const [status, setStatus] = useState('');
-  const [deadline, setDeadline] = useState('');
-
   const params = route.params;
-  
+  const todoId = route.params.id; 
+
+  const [title, setTitle] = useState(params.title? params.title :'');
+  const [desc, setDesc] = useState(params.description? params.description :'');
+  const [status, setStatus] = useState(params.status? params.status :'');
+  const [deadline, setDeadline] = useState(params.deadline? params.deadline :'');
+
+  const updateTask = async (params) => {
+    const dataTodo = {
+      title: params.title,
+      description: params.desc,
+      status: params.status,
+      deadline: params.deadline
+    };
+    const res = await axios.patch(`${url}/${params.todoId}`, dataTodo)
+      .then(function (json) {
+        // console.log(json.response)
+        navigation.navigate('Dashboard')
+      })
+  }
+
   const createTask = async (params) => {
     const dataTodo = {
       title: params.title,
@@ -20,9 +35,9 @@ export default function Todo({route, navigation}) {
     };
     const res = await axios.post(url, dataTodo)
       .then(function (json) {
-        console.log(json.response)
+        // console.log(json.response)
+        navigation.navigate('Dashboard')
       })
-    // console.log(dataTodo);
   }
 
   return (
@@ -36,9 +51,16 @@ export default function Todo({route, navigation}) {
         <View style={{width: '30%'}}>
           <Button title={'Back'} onPress={() => navigation.navigate('Dashboard')}/>
         </View>
-        <View style={{width: '30%'}}>
-          <Button title={params.buttonText} onPress={() => createTask({title, desc, status, deadline})} />
-        </View>
+        {
+          (params.buttonText == 'Save') ?
+            <View style={{width: '30%'}}>
+              <Button title={params.buttonText} onPress={() => updateTask({title, desc, status, deadline, todoId})} />
+            </View>
+            :
+            <View style={{width: '30%'}}>
+              <Button title={params.buttonText} onPress={() => createTask({title, desc, status, deadline})} />
+            </View>
+        }
       </View>
     </View>
   )
