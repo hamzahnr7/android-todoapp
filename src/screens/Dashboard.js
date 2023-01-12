@@ -20,7 +20,7 @@ import {
   ToastAndroid
 } from 'react-native';
 // import todoTemp from './src/todoTemp';
-import Task from '../components/todo';
+import Task from '../components/todoComponent';
 import axios from 'axios';
 import { url } from '../Env';
 
@@ -48,13 +48,15 @@ export default function Dashboard({navigation}) {
     const res = axios.get(url)
     .then(function (json) {
       setTaskItems(json.data)
-      console.log(taskItems)
+      // console.log(taskItems)
+    }).catch(function (error) {
+      console.log(error)
     });
   }
  
   useEffect(() => {
     getTodo()
-  }, [])
+  }, [getTodo()])
   
   
   return (
@@ -73,11 +75,11 @@ export default function Dashboard({navigation}) {
           <View style={styles.items}>
             {/* task go */}
             {
-              taskItems.map((data, index) => {
+              taskItems.map((data, idx) => {
                 return (
-                  <TouchableOpacity key={index}  /*onPress={() => completeTask(index)}*/>
+                  <View key={idx} /*onPress={() => completeTask(index)}*/>
                     <Task title={data.title} stat={data.status} id={data.id}/> 
-                  </TouchableOpacity>
+                  </View>
                 )
               })
             }
