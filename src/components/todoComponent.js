@@ -41,9 +41,10 @@ const Task = (props, navigation) => {
                 <View style={styles.itemLeft}>
                     <Text style={styles.textTitle}>{props.title}</Text>
                     {
-                        props.stat == 'Todo' ? <StatusComponent color={styles.textGreen} status={props.stat} /> : 
-                            props.stat == 'Ongoing' ? <StatusComponent color={styles.textYellow} status={props.stat} /> :
-                            <StatusComponent color={styles.textRed} status={props.stat} />
+                        props.stat == 'Todo' ? <StatusComponent color={styles.textBlue} status={props.stat} /> : 
+                          props.stat == 'Ongoing' ? <StatusComponent color={styles.textYellow} status={props.stat} /> :
+                            props.stat == 'Done'? <StatusComponent color={styles.textGreen} status={props.stat} /> : 
+                              <StatusComponent color={styles.textGreen} status={props.stat} />
                     }
                 </View>
                 <TouchableOpacity onPress={() => setDeleteModal(!deleteModal)}>
@@ -118,6 +119,9 @@ const styles = StyleSheet.create({
     },
     textRed: {
         color: '#983434'
+    },
+    textBlue: {
+        color: '#1F79A3'
     },
     // DeleteModal Style
     centeredView: {

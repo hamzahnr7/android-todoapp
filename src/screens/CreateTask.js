@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Button, StyleSheet, Text, TextInput, View, ToastAndroid } from 'react-native'
 import React, { useState } from 'react'
 import axios from 'axios';
 import { url } from '../Env';
@@ -27,15 +27,22 @@ export default function Todo({route, navigation}) {
   }
 
   const createTask = async (params) => {
+    if (title == '' || desc == '' || status == '' || deadline == '') {
+      return ToastAndroid.showWithGravity(
+        'All Your Base Are Belong To Us',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      )
+    }
     const dataTodo = {
       title: params.title,
       description: params.desc,
       status: params.status,
       deadline: params.deadline
     };
+    console.log(url)
     const res = await axios.post(url, dataTodo)
       .then(function (json) {
-        // console.log(json.response)
         navigation.navigate('Dashboard')
       })
   }
