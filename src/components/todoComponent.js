@@ -15,12 +15,10 @@ import { url } from '../Env';
 
 const Task = (props, navigation) => {
     const [deleteModal, setDeleteModal] = useState(false);
-    const [Idx, setIdx] = useState(0);
 
     const deleteTask = async (params) => {
       const response = await axios.delete(`${url}/${props.id}`)
         .then(function (json) {
-          // console.log(`Deleted id ${params}`)
           setDeleteModal(!deleteModal)
         }).catch(function (error) {
           console.log(error)
@@ -29,9 +27,9 @@ const Task = (props, navigation) => {
 
     function StatusComponent(params) {
         return (
-            <View style={{borderRadius: 8, backgroundColor: 'white', paddingHorizontal: 12, paddingVertical: 2}}>
-                <Text style={params.color}>{params.status}</Text>
-            </View>
+          <View style={{borderRadius: 8, backgroundColor: 'white', paddingHorizontal: 12, paddingVertical: 2}}>
+              <Text style={params.color}>{params.status}</Text>
+          </View>
         )
     }
 
@@ -39,7 +37,10 @@ const Task = (props, navigation) => {
         <View>
             <View style={styles.item}>
                 <View style={styles.itemLeft}>
+                  <View>
                     <Text style={styles.textTitle}>{props.title}</Text>
+                    <Text style={styles.textSmall}>{props.date}</Text>
+                  </View>
                     {
                         props.stat == 'Todo' ? <StatusComponent color={styles.textBlue} status={props.stat} /> : 
                           props.stat == 'Ongoing' ? <StatusComponent color={styles.textYellow} status={props.stat} /> :
@@ -50,11 +51,6 @@ const Task = (props, navigation) => {
                 <TouchableOpacity onPress={() => setDeleteModal(!deleteModal)}>
                     <Icon name='delete-empty' size={30}/>
                 </TouchableOpacity>
-                {/* <View style={{flexDirection: 'row', flex: 1}}>
-                    <TouchableOpacity style={{marginHorizontal: 10}} onPress={() => updateTask(props.id)}>
-                        <Icon name='pencil-box' size={30}/>
-                    </TouchableOpacity>
-                </View> */}
             </View>
             <Modal
                 animationType="fade"
@@ -111,6 +107,9 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
     },
+    textSmall: {
+      fontSize: 12,
+    },
     textGreen: {
         color: '#5A9834'
     },
@@ -125,47 +124,47 @@ const styles = StyleSheet.create({
     },
     // DeleteModal Style
     centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: 22
+    },
+    modalView: {
+      margin: 20,
+      backgroundColor: "white",
+      borderRadius: 20,
+      padding: 35,
+      alignItems: "center",
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2
       },
-      modalView: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        // elevation: 5
-      },
-      button: {
-        borderRadius: 10,
-        padding: 10,
-        // elevation: 2,
-        marginVertical: 5
-      },
-      buttonOpen: {
-        backgroundColor: "#F194FF",
-      },
-      buttonClose: {
-        backgroundColor: "#2196F3",
-      },
-      textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-      },
-      modalText: {
-        marginBottom: 15,
-        textAlign: "center"
-      }
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      // elevation: 5
+    },
+    button: {
+      borderRadius: 10,
+      padding: 10,
+      // elevation: 2,
+      marginVertical: 5
+    },
+    buttonOpen: {
+      backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+      backgroundColor: "#2196F3",
+    },
+    textStyle: {
+      color: "white",
+      fontWeight: "bold",
+      textAlign: "center"
+    },
+    modalText: {
+      marginBottom: 15,
+      textAlign: "center"
+    }
 });
 
 export default Task;

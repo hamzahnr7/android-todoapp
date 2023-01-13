@@ -21,7 +21,6 @@ export default function Todo({route, navigation}) {
     };
     const res = await axios.patch(`${url}/${params.todoId}`, dataTodo)
       .then(function (json) {
-        // console.log(json.response)
         navigation.navigate('Dashboard')
       })
   }
@@ -40,7 +39,6 @@ export default function Todo({route, navigation}) {
       status: params.status,
       deadline: params.deadline
     };
-    console.log(url)
     const res = await axios.post(url, dataTodo)
       .then(function (json) {
         navigation.navigate('Dashboard')

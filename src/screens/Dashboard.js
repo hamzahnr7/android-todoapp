@@ -19,7 +19,6 @@ import {
   FlatList,
   ToastAndroid
 } from 'react-native';
-// import todoTemp from './src/todoTemp';
 import Task from '../components/todoComponent';
 import axios from 'axios';
 import { url } from '../Env';
@@ -32,7 +31,6 @@ export default function Dashboard({navigation}) {
     const response = await axios.get(`${url}/${id}`)
       .then(function (json) {
         const data = json.data;
-        // console.log(json.data);
         navigation.navigate('Todo', {buttonText: 'Save', ...data})
       })
       .catch(function (error) {
@@ -44,7 +42,6 @@ export default function Dashboard({navigation}) {
     const res = axios.get(url)
     .then(function (json) {
       setTaskItems(json.data)
-      // console.log(taskItems)
     }).catch(function (error) {
       console.log(error)
     });
@@ -90,14 +87,14 @@ export default function Dashboard({navigation}) {
                   if (filter == 'All') {
                     return (
                       <TouchableOpacity key={idx} onPress={() => updateTask(data.id)}>
-                        <Task title={data.title} stat={data.status} id={data.id}/> 
+                        <Task title={data.title} stat={data.status} id={data.id} date={data.deadline}/> 
                       </TouchableOpacity>
                     )
                   }
                   else if (data.status == filter) {
                     return (
                       <TouchableOpacity key={idx} onPress={() => updateTask(data.id)}>
-                        <Task title={data.title} stat={data.status} id={data.id}/> 
+                        <Task title={data.title} stat={data.status} id={data.id} date={data.deadline}/> 
                       </TouchableOpacity>
                     )
                   }
@@ -105,7 +102,6 @@ export default function Dashboard({navigation}) {
               }
             </ScrollView>
           </View>
-          {/* Buat Test getTodo() */}
         </View>
         </View>
         <View style={{ height: 60}}>
@@ -143,9 +139,6 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     paddingHorizontal: 20,
     alignItems: "center",
-    // flex: 1,
-    // height: 200,
-    // borderWidth: 1
   },
   sectionTitle: {
     fontSize: 24,
@@ -185,9 +178,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10, 
     marginVertical: 10,
     borderTopWidth: 5,
-    // borderTopLeftRadius: 10,
-    // borderTopRightRadius: 10,
-    // borderRadius: 10,
     borderTopColor: 'gray',
   },
   filterButton: {
