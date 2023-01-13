@@ -1,19 +1,21 @@
 import { Button, StyleSheet, View, ToastAndroid } from 'react-native'
 import React, { useState } from 'react'
 import { TextInput, Text } from "@react-native-material/core";
-import DatePicker from 'react-native-date-picker'
+import {Picker} from '@react-native-picker/picker';
+import { DatePickerInput } from 'react-native-paper-dates';
+
 import axios from 'axios';
 import { url } from '../Env';
 
 export default function Todo({route, navigation}) {
   const params = route.params;
   const todoId = route.params.id; 
-  const [date, setDate] = useState(new Date())
-
+  const [deadline, setInputDate] = useState(params.deadline? params.deadline :'');
   const [title, setTitle] = useState(params.title? params.title :'');
-  const [desc, setDesc] = useState(params.description? params.description :'');
   const [status, setStatus] = useState(params.status? params.status :'');
-  const [deadline, setDeadline] = useState(params.deadline? params.deadline :'');
+  const [desc, setDesc] = useState(params.description? params.description :'');
+  //const [status, setStatus] = useState(params.status? params.status :'');
+  //const [deadline, setDeadline] = useState(params.deadline? params.deadline :'');
 
   const updateTask = async (params) => {
     const dataTodo = {
@@ -55,8 +57,23 @@ export default function Todo({route, navigation}) {
       </Text>
       <TextInput variant='outlined' label='Type Title' onChangeText={(text) => setTitle(text)} value={title}/>
       <TextInput variant='outlined' label='Fill Description' onChangeText={(text) => setDesc(text)} value={desc}/>
-      <TextInput variant='outlined' label='Set Status' onChangeText={(text) => setStatus(text)} value={status}/>
-      <TextInput variant='outlined' label='Set Deadline' onChangeText={(text) => setDeadline(text)} value={deadline}/>
+      
+      <Picker
+      selectedValue={status}
+      onValueChange={(text, itemIndex) =>
+      setStatus(text)
+      }>
+      <Picker.Item label="Todo" value="Todo" />
+      <Picker.Item label="Ongoing" value="Ongoing" />
+      <Picker.Item label="Done" value="Done" />
+      </Picker>
+      <DatePickerInput
+          locale="en"
+          label="Deadline"
+          value={deadline}
+          onChange={(text) => setInputDate(text) }
+          inputMode="start"
+        />
       <View style={{flexDirection: 'row', alignSelf: 'center'}}>
         <View style={{width: '30%'}}>
           <Button title={'Back'} onPress={() => navigation.navigate('Dashboard')}/>
@@ -77,15 +94,6 @@ export default function Todo({route, navigation}) {
 }
 
 const styles = StyleSheet.create({
-  input: {
-    paddingVertical: 10,
-    paddingHorizontal: 30,
-    backgroundColor: '#FFF',
-    borderRadius: 60,
-    borderColor: '#C0C0C0',
-    borderWidth: 1,
-    width: 250,
-  },
   textWrapper: {
     paddingTop: 40,
     paddingHorizontal: 20,

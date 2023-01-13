@@ -7,6 +7,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Dashboard from './src/screens/Dashboard';
 import Todo from './src/screens/CreateTask';
+import {
+  enGB,
+  registerTranslation,
+} from 'react-native-paper-dates'
+registerTranslation('en', enGB)
 
 
 export default function App() {
