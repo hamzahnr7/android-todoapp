@@ -76,7 +76,6 @@ export default function Todo({route, navigation}) {
             inputMode="start"
           />
       </View>
-      {/* <TextInput variant='outlined' label='Input Deadline' onChangeText={(text) => setInputDate(text)} value={deadline}/> */}
       <View style={styles.buttonWrapper}>
         <View style={styles.buttonContainer}>
           <Button title={'Back'} onPress={() => navigation.navigate('Dashboard')}/>
