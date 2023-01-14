@@ -1,6 +1,6 @@
-import { Button, StyleSheet, View, ToastAndroid } from 'react-native'
+import { StyleSheet, View, ToastAndroid } from 'react-native'
 import React, { useState } from 'react'
-import { TextInput, Text } from "@react-native-material/core";
+import { TextInput, Text, Stack, Button } from "@react-native-material/core";
 import {Picker} from '@react-native-picker/picker';
 import { DatePickerInput } from 'react-native-paper-dates';
 
@@ -58,10 +58,11 @@ export default function Todo({route, navigation}) {
       <Text variant="h4" style={styles.textWrapper} >
       {params.screenTitle}
       </Text>
-      <TextInput variant='outlined' label='Type Title' onChangeText={(text) => setTitle(text)} value={title}/>
-      <TextInput variant='outlined' label='Fill Description' onChangeText={(text) => setDesc(text)} value={desc}/>
+      <TextInput style={styles.textItem} variant='outlined' label='Type Title' onChangeText={(text) => setTitle(text)} value={title}/>
+      <TextInput style={styles.textItem} variant='outlined' label='Fill Description' onChangeText={(text) => setDesc(text)} value={desc}/>
       
       <Picker
+        style={{paddingHorizontal: 20}}
         selectedValue={status}
         onValueChange={(text, itemIndex) => setStatus(text)}
         placeholder='Select Input'
@@ -80,13 +81,15 @@ export default function Todo({route, navigation}) {
         />
       {/* <TextInput variant='outlined' label='Input Deadline' onChangeText={(text) => setInputDate(text)} value={deadline}/> */}
       <View style={{flexDirection: 'row', alignSelf: 'center'}}>
-        <View style={{width: '30%'}}>
-          <Button title={'Back'} onPress={() => navigation.navigate('Dashboard')}/>
-        </View>
+        <Stack>
+          <Button variant="outlined" title="Back" onPress={() => navigation.navigate('Dashboard')}/>
+        </Stack>
         {
           (params.buttonText == 'Save') ?
-            <View style={{width: '30%'}}>
+            <View>
+              <Stack>
               <Button title={params.buttonText} onPress={() => updateTask({title, desc, status, deadline, todoId})} />
+            </Stack>
             </View>
             :
             <View style={{width: '30%'}}>
@@ -100,7 +103,12 @@ export default function Todo({route, navigation}) {
 
 const styles = StyleSheet.create({
   textWrapper: {
-    paddingTop: 40,
+    paddingVertical: 40,
+    paddingHorizontal: 20,
+    alignItems: "center",
+  },
+  textItem: {
+    paddingVertical: 10,
     paddingHorizontal: 20,
     alignItems: "center",
   }
