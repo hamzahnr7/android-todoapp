@@ -56,7 +56,7 @@ export default function Todo({route, navigation}) {
   return (
     <View>
       <Text variant="h4" style={styles.textWrapper} >
-      Create your new ToDo!
+      {params.screenTitle}
       </Text>
       <TextInput variant='outlined' label='Type Title' onChangeText={(text) => setTitle(text)} value={title}/>
       <TextInput variant='outlined' label='Fill Description' onChangeText={(text) => setDesc(text)} value={desc}/>

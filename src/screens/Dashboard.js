@@ -33,7 +33,9 @@ export default function Dashboard({navigation}) {
         // const date = json.data.deadline.replaceAll("-", "/");
         const data = json.data;
         navigation.navigate('Todo', {
-          buttonText: 'Save', ...data 
+          buttonText: 'Save',
+          screenTitle: 'Task Details', 
+          ...data 
           // title: data.title, description: data.description,
           // status: data.status, deadline: date 
         })
@@ -117,7 +119,7 @@ export default function Dashboard({navigation}) {
             style={styles.writeTaskWrapper}
           >
             <View style={{width: 160, justifyContent: 'center'}}>
-              <FAB onPress={() => navigation.navigate('Todo', {buttonText: 'Create Todo'})}
+              <FAB onPress={() => navigation.navigate('Todo', {screenTitle: 'Create your new ToDo!', buttonText: 'Create Todo'})}
                 variant="extended" 
                 icon={props => <Icon name="pencil" size={20} color='white'/>} 
                 label="New ToDo"
