@@ -1,6 +1,6 @@
 // import { StyleSheet, Text, View } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import { Stack, FAB } from "@react-native-material/core";
+import { Stack, FAB, Divider } from "@react-native-material/core";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import {
@@ -181,8 +181,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between', 
     paddingVertical: 10, 
     marginVertical: 10,
-    borderTopWidth: 5,
-    borderTopColor: 'gray',
+    // borderTopWidth: 5,
+    // borderTopColor: 'gray',
   },
   filterButton: {
     backgroundColor: 'white',
