@@ -1,6 +1,6 @@
-import { Button, StyleSheet, View, ToastAndroid } from 'react-native'
+import { StyleSheet, View, ToastAndroid } from 'react-native'
 import React, { useState } from 'react'
-import { TextInput, Text } from "@react-native-material/core";
+import { TextInput, Text, Button } from "@react-native-material/core";
 import {Picker} from '@react-native-picker/picker';
 import { DatePickerInput } from 'react-native-paper-dates';
 
@@ -16,8 +16,6 @@ export default function Todo({route, navigation}) {
   const [title, setTitle] = useState(params.title? params.title :'');
   const [status, setStatus] = useState(params.status? params.status :'');
   const [desc, setDesc] = useState(params.description? params.description :'');
-  //const [status, setStatus] = useState(params.status? params.status :'');
-  //const [deadline, setDeadline] = useState(params.deadline? params.deadline :'');
 
   const updateTask = async (params) => {
     const dataTodo = {
@@ -33,7 +31,6 @@ export default function Todo({route, navigation}) {
   }
 
   const createTask = async (params) => {
-    console.log(params)
     if (params.title == '' || params.desc == '' || params.status == '' || params.deadline == '') {
       return ToastAndroid.showWithGravity(
         'Please fill all the blank form',
@@ -55,41 +52,42 @@ export default function Todo({route, navigation}) {
 
   return (
     <View>
-      <Text variant="h4" style={styles.textWrapper} >
-      {params.screenTitle}
-      </Text>
-      <TextInput variant='outlined' label='Type Title' onChangeText={(text) => setTitle(text)} value={title}/>
-      <TextInput variant='outlined' label='Fill Description' onChangeText={(text) => setDesc(text)} value={desc}/>
+      <Text variant="h4" style={styles.textWrapper} >{params.screenTitle}</Text>
+      <TextInput style={styles.inputWrapper} variant='outlined' label='Type Title' onChangeText={(text) => setTitle(text)} value={title}/>
+      <TextInput style={styles.inputWrapper} variant='outlined' label='Fill Description' onChangeText={(text) => setDesc(text)} value={desc}/>
       
-      <Picker
-        selectedValue={status}
-        onValueChange={(text, itemIndex) => setStatus(text)}
-        placeholder='Select Input'
-        >
-        <Picker.Item label="Select Input" />
-        <Picker.Item label="Todo" value="Todo" />
-        <Picker.Item label="Ongoing" value="Ongoing" />
-        <Picker.Item label="Done" value="Done" />
-      </Picker>
-      <DatePickerInput
-          locale="en"
-          label="Deadline"
-          value={deadline}
-          onChange={(text) => setInputDate(text) }
-          inputMode="start"
-        />
+      <View style={styles.inputWrapper}>
+        <Picker
+          selectedValue={status}
+          onValueChange={(text) => setStatus(text)}
+          >
+          <Picker.Item label="Select Input" />
+          <Picker.Item label="Todo" value="Todo" />
+          <Picker.Item label="Ongoing" value="Ongoing" />
+          <Picker.Item label="Done" value="Done" />
+        </Picker>
+      </View>
+      <View style={styles.inputWrapper}>
+        <DatePickerInput
+            locale="en"
+            label="Deadline"
+            value={deadline}
+            onChange={(text) => setInputDate(text) }
+            inputMode="start"
+          />
+      </View>
       {/* <TextInput variant='outlined' label='Input Deadline' onChangeText={(text) => setInputDate(text)} value={deadline}/> */}
-      <View style={{flexDirection: 'row', alignSelf: 'center'}}>
-        <View style={{width: '30%'}}>
+      <View style={styles.buttonWrapper}>
+        <View style={styles.buttonContainer}>
           <Button title={'Back'} onPress={() => navigation.navigate('Dashboard')}/>
         </View>
         {
           (params.buttonText == 'Save') ?
-            <View style={{width: '30%'}}>
+            <View style={styles.buttonContainer}>
               <Button title={params.buttonText} onPress={() => updateTask({title, desc, status, deadline, todoId})} />
             </View>
             :
-            <View style={{width: '30%'}}>
+            <View style={styles.buttonContainer}>
               <Button title={params.buttonText} onPress={() => createTask({title, desc, status, deadline})} />
             </View>
         }
@@ -100,8 +98,22 @@ export default function Todo({route, navigation}) {
 
 const styles = StyleSheet.create({
   textWrapper: {
-    paddingTop: 40,
+    paddingVertical: 40,
     paddingHorizontal: 20,
-    alignItems: "center",
-  }
+    textAlign: "center",
+  },
+  inputWrapper: {
+    paddingHorizontal: 20,
+    paddingTop: 15
+  },
+  buttonWrapper: {
+    flexDirection: 'row', 
+    alignSelf: 'center', 
+    paddingTop: 30, 
+    paddingHorizontal: 20
+  },
+  buttonContainer: {
+    flex: 1, 
+    marginHorizontal: 10
+  },
 })
