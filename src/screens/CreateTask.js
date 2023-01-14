@@ -9,8 +9,10 @@ import { url } from '../Env';
 
 export default function Todo({route, navigation}) {
   const params = route.params;
-  const todoId = route.params.id; 
-  const [deadline, setInputDate] = useState(params.deadline? params.deadline :'');
+  const todoId = route.params.id;
+  const dateTime = new Date(params.deadline);
+
+  const [deadline, setInputDate] = useState(params.deadline?  dateTime :'');
   const [title, setTitle] = useState(params.title? params.title :'');
   const [status, setStatus] = useState(params.status? params.status :'');
   const [desc, setDesc] = useState(params.description? params.description :'');
@@ -31,7 +33,8 @@ export default function Todo({route, navigation}) {
   }
 
   const createTask = async (params) => {
-    if (title == '' || desc == '' || status == '' || deadline == '') {
+    console.log(params)
+    if (params.title == '' || params.desc == '' || params.status == '' || params.deadline == '') {
       return ToastAndroid.showWithGravity(
         'Please fill all the blank form',
         ToastAndroid.LONG,
@@ -59,13 +62,14 @@ export default function Todo({route, navigation}) {
       <TextInput variant='outlined' label='Fill Description' onChangeText={(text) => setDesc(text)} value={desc}/>
       
       <Picker
-      selectedValue={status}
-      onValueChange={(text, itemIndex) =>
-      setStatus(text)
-      }>
-      <Picker.Item label="Todo" value="Todo" />
-      <Picker.Item label="Ongoing" value="Ongoing" />
-      <Picker.Item label="Done" value="Done" />
+        selectedValue={status}
+        onValueChange={(text, itemIndex) => setStatus(text)}
+        placeholder='Select Input'
+        >
+        <Picker.Item label="Select Input" />
+        <Picker.Item label="Todo" value="Todo" />
+        <Picker.Item label="Ongoing" value="Ongoing" />
+        <Picker.Item label="Done" value="Done" />
       </Picker>
       <DatePickerInput
           locale="en"
@@ -74,6 +78,7 @@ export default function Todo({route, navigation}) {
           onChange={(text) => setInputDate(text) }
           inputMode="start"
         />
+      {/* <TextInput variant='outlined' label='Input Deadline' onChangeText={(text) => setInputDate(text)} value={deadline}/> */}
       <View style={{flexDirection: 'row', alignSelf: 'center'}}>
         <View style={{width: '30%'}}>
           <Button title={'Back'} onPress={() => navigation.navigate('Dashboard')}/>

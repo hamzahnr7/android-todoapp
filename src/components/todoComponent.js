@@ -39,7 +39,7 @@ const Task = (props, navigation) => {
                 <View style={styles.itemLeft}>
                   <View>
                     <Text style={styles.textTitle}>{props.title}</Text>
-                    <Text style={styles.textSmall}>{props.date}</Text>
+                    <Text style={styles.textSmall}>{props.date.replaceAll("-","/")}</Text>
                   </View>
                     {
                         props.stat == 'Todo' ? <StatusComponent color={styles.textBlue} status={props.stat} /> : 

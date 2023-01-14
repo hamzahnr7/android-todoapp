@@ -30,8 +30,13 @@ export default function Dashboard({navigation}) {
   const updateTask = async (id) => {
     const response = await axios.get(`${url}/${id}`)
       .then(function (json) {
+        // const date = json.data.deadline.replaceAll("-", "/");
         const data = json.data;
-        navigation.navigate('Todo', {buttonText: 'Save', ...data})
+        navigation.navigate('Todo', {
+          buttonText: 'Save', ...data 
+          // title: data.title, description: data.description,
+          // status: data.status, deadline: date 
+        })
       })
       .catch(function (error) {
         console.log(error)
