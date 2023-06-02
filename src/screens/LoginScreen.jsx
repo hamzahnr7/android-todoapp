@@ -9,7 +9,7 @@ export default function LoginScreen({navigation}) {
   return (
     <>
       <View style={{padding: 30}}>
-        <Text style={{fontSize: 32, textAlign: 'center'}}>LoginScreen</Text>
+        <Text style={{fontSize: 32, textAlign: 'center'}}>ToDo App</Text>
         <Image style={{alignSelf: 'center', width: 240, height: 240,}} source={require('../assets/background.png')}/>
         <View style={{marginBottom: 12}}>
           <Text>Username</Text>
