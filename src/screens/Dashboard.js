@@ -138,15 +138,15 @@ export default function Dashboard({navigation}) {
             <FAB
               onPress={() =>
                 navigation.navigate('Todo', {
-                  screenTitle: 'Create your new ToDo!',
-                  buttonText: 'Create Todo',
+                  screenTitle: 'Create your new Task!',
+                  buttonText: 'Create Task',
                 })
               }
               variant="extended"
               icon={props => <Icon name="pencil" size={20} color="white" />}
-              label="New ToDo"
+              label="CREATE TASK"
               color="primary"
-              size="default"
+              size="mini"
             />
           </View>
         </KeyboardAvoidingView>
