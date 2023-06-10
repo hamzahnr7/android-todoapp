@@ -11,7 +11,9 @@ export default function LoginScreen({navigation}) {
     await axios.post(`${domain}/auth/loginUser`,
     {username: user, password: pass})
     .then(function (res) {
-      console.log(res.data);
+      // console.log(res.data);
+      userText('');
+      passText('');
       if (res.data.access_token) {
         navigation.navigate('Dashboard', {token: res.data.access_token});
       }
@@ -42,7 +44,12 @@ export default function LoginScreen({navigation}) {
             onChangeText={text => passText(text)}
             />
         </View>
-        <Button onPress={() => loginUser(user, pass)} title='Login'/> 
+        <View>
+          <Button onPress={() => loginUser(user, pass)} title='Login'/>
+        </View>
+        <View style={{marginTop: 10}}>
+          <Button onPress={() => navigation.navigate('Register')} title='Register' color={'#acacac'}/>
+        </View>
       </View>
     </>
   );

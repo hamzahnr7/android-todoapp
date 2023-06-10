@@ -18,6 +18,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Button,
 } from 'react-native';
 import Task from '../components/todoComponent';
 import axios from 'axios';
@@ -136,7 +137,18 @@ export default function Dashboard({route, navigation}) {
           // eslint-disable-next-line no-undef
           behavior={Platform.OS === 'android' ? '10' : '10'}
           style={styles.writeTaskWrapper}>
-          <View style={{width: 160, justifyContent: 'center'}}>
+          <View
+            style={{
+              width: '100%',
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+            }}>
+            <FAB
+              icon={props => <Icon name="help" size={20} color="white" />}
+              variant="standard"
+              color="primary"
+              size="mini"
+            />
             <FAB
               onPress={() =>
                 navigation.navigate('Todo', {
@@ -145,9 +157,16 @@ export default function Dashboard({route, navigation}) {
                   token: token,
                 })
               }
-              variant="extended"
               icon={props => <Icon name="pencil" size={20} color="white" />}
+              variant="extended"
               label="CREATE TASK"
+              color="primary"
+              size="mini"
+            />
+            <FAB
+              onPress={() => navigation.navigate('Login')}
+              icon={props => <Icon name="logout" size={20} color="white" />}
+              variant="standard"
               color="primary"
               size="mini"
             />
