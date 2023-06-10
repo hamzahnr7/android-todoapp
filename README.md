@@ -1,7 +1,7 @@
 # android-todoapp
-To-Do App for Android 
+To-Do App for Android Platform
 
-Fix Error useNativeDriver -> True
+## Fix Error useNativeDriver -> True
 
 ```
 @react-native-material/core/src/FAB.tsx
@@ -9,4 +9,10 @@ Fix Error useNativeDriver -> True
 find useNativeDriver
 
 change value to True
+```
+
+## URL API
+
+```
+edit var domain in Env.js
 ```
