@@ -1,10 +1,22 @@
+import axios from 'axios';
 import {useState} from 'react';
 import {Text, View, TextInput, Button, Image} from 'react-native';
-// import React, {Component} from 'react';
+import {domain} from '../Env'
 
 export default function LoginScreen({navigation}) {
   const [user, userText] = useState('');
   const [pass, passText] = useState('');
+
+  const loginUser = async () => {
+    await axios.post(`${domain}/auth/loginUser`,
+    {username: user, password: pass})
+    .then(function (res) {
+      console.log(res.data);
+      if (res.data.access_token) {
+        navigation.navigate('Dashboard', {token: res.data.access_token});
+      }
+    })
+  } 
 
   return (
     <>
@@ -30,7 +42,7 @@ export default function LoginScreen({navigation}) {
             onChangeText={text => passText(text)}
             />
         </View>
-        <Button onPress={() => {userText(''); passText(''); navigation.navigate('Dashboard')}} title='Login'/> 
+        <Button onPress={() => loginUser(user, pass)} title='Login'/> 
       </View>
     </>
   );

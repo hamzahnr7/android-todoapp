@@ -1,5 +1,6 @@
-const domain = 'https://d4cb-103-233-100-228.ngrok-free.app';
-// const domain = 'http://localhost:3333';
-const url = `${domain}/todo`;
+const domain = 'https://ccd6-180-244-138-78.ngrok-free.app';
+const todoUrl = `${domain}/todo`;
+const loginUser = `${domain}/auth/loginUser`;
+const createUser = `${domain}/user`;
 
-export {url};
+export {todoUrl, loginUser, createUser, domain};

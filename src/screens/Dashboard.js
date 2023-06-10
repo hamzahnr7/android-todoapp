@@ -21,20 +21,22 @@ import {
 } from 'react-native';
 import Task from '../components/todoComponent';
 import axios from 'axios';
-import {url} from '../Env';
+import {todoUrl} from '../Env';
 
-export default function Dashboard({navigation}) {
+export default function Dashboard({route, navigation}) {
   const [taskItems, setTaskItems] = useState([]);
   const [filter, setFilter] = useState('All');
+  const token = route.params.token;
 
   const updateTask = async id => {
     const response = await axios
-      .get(`${url}/${id}`)
+      .get(`${todoUrl}/${id}`, {headers: {Authorization: `Bearer ${token}`}})
       .then(function (json) {
         const data = json.data;
         navigation.navigate('Todo', {
           buttonText: 'Save',
           screenTitle: 'Task Details',
+          token: token,
           ...data,
         });
       })
@@ -45,7 +47,7 @@ export default function Dashboard({navigation}) {
 
   const getTodo = () => {
     axios
-      .get(url)
+      .get(todoUrl, {headers: {Authorization: `Bearer ${token}`}})
       .then(function (json) {
         setTaskItems(json.data);
       })
@@ -140,6 +142,7 @@ export default function Dashboard({navigation}) {
                 navigation.navigate('Todo', {
                   screenTitle: 'Create your new Task!',
                   buttonText: 'Create Task',
+                  token: token,
                 })
               }
               variant="extended"

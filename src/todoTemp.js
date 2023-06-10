@@ -1,15 +1,15 @@
 export default todoTemp = [
-    {
-        name: "Shopping list",
-        todos: [
-            {
-            title: "preparing car",
-            completed: false
-            },
-            {
-            title: "Check balance",
-            completed: true
-            }
-        ]
-    }
-]
+  {
+    name: 'Shopping list',
+    todos: [
+      {
+        title: 'preparing car',
+        completed: false,
+      },
+      {
+        title: 'Check balance',
+        completed: true,
+      },
+    ],
+  },
+];

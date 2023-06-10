@@ -5,10 +5,11 @@ import {Picker} from '@react-native-picker/picker';
 import {DatePickerInput} from 'react-native-paper-dates';
 
 import axios from 'axios';
-import {url} from '../Env';
+import {domain} from '../Env';
 
 export default function Todo({route, navigation}) {
   const params = route.params;
+  const token = route.params.token;
   const todoId = route.params.id;
   const dateTime = new Date(params.deadline);
 
@@ -27,9 +28,11 @@ export default function Todo({route, navigation}) {
       deadline: params.deadline,
     };
     const res = await axios
-      .patch(`${url}/${params.todoId}`, dataTodo)
+      .patch(`${domain}/todo/${params.todoId}`, dataTodo, {
+        headers: {Authorization: `Bearer ${token}`},
+      })
       .then(function (json) {
-        navigation.navigate('Dashboard');
+        navigation.navigate('Dashboard', {token: token});
       });
   };
 
@@ -52,9 +55,14 @@ export default function Todo({route, navigation}) {
       status: params.status,
       deadline: params.deadline,
     };
-    const res = await axios.post(url, dataTodo).then(function (json) {
-      navigation.navigate('Dashboard');
-    });
+    // console.log(token);
+    const res = await axios
+      .post(`${domain}/todo`, dataTodo, {
+        headers: {Authorization: `Bearer ${token}`},
+      })
+      .then(function (json) {
+        navigation.navigate('Dashboard', {token: token});
+      });
   };
 
   return (
@@ -98,7 +106,7 @@ export default function Todo({route, navigation}) {
         <View style={styles.buttonContainer}>
           <Button
             title={'Back'}
-            onPress={() => navigation.navigate('Dashboard')}
+            onPress={() => navigation.navigate('Dashboard', {token: token})}
           />
         </View>
         {params.buttonText == 'Save' ? (
