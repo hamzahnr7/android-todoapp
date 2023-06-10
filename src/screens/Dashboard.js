@@ -121,6 +121,7 @@ export default function Dashboard({route, navigation}) {
                         stat={data.status}
                         id={data.id}
                         date={data.deadline}
+                        token={token}
                       />
                     </TouchableOpacity>
                   );
@@ -145,6 +146,7 @@ export default function Dashboard({route, navigation}) {
             }}>
             <FAB
               icon={props => <Icon name="help" size={20} color="white" />}
+              onPress={() => navigation.navigate('Help', {token: token})}
               variant="standard"
               color="primary"
               size="mini"

@@ -10,14 +10,14 @@ import {
     Pressable
 } from 'react-native';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { url } from '../Env';
+import { domain } from '../Env';
 
 
 const Task = (props, navigation) => {
     const [deleteModal, setDeleteModal] = useState(false);
 
     const deleteTask = async (params) => {
-      const response = await axios.delete(`${url}/${props.id}`)
+      const response = await axios.delete(`${domain}/todo/${props.id}`, {headers: {Authorization: `Bearer ${props.token}`}})
         .then(function (json) {
           setDeleteModal(!deleteModal)
         }).catch(function (error) {
